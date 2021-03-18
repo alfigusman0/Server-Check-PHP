@@ -70,9 +70,27 @@
 	$time_taken = $end_time - $start_time;
 	$total_time = round($time_taken,4);
 
+	$data = array(
+		"ram_usage" => $memusage,
+		"cpu_usage" => $cpuload,
+		"hard_disk_usage" => $diskusage,
+		"established_connections" => $connections,
+		"total_connections" => $totalconnections,
+		"ram_total" => $memtotal,
+		"ram_used" => $memused,
+		"ram_available" => $memavailable,
+		"hard_disk_free" => $diskfree,
+		"hard_disk_used" => $diskused,
+		"hard_disk_total" => $disktotal,
+		"server_name" => $_SERVER['SERVER_NAME'],
+		"server_addr" => $_SERVER['SERVER_ADDR'],
+		"php_version" => phpversion(),
+		"load_time" => $total_time,
+ 	);
+
 	// use servercheck.php?json=1
 	if (isset($_GET['json'])) {
-		echo '{"ram":'.$memusage.',"cpu":'.$cpuload.',"disk":'.$diskusage.',"connections":'.$totalconnections.'}';
+		echo json_encode($data);
 		exit;
 	}
 
